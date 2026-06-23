@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <rect width="800" height="420" rx="14" fill="#0d1117"/>
+  <!-- header -->
+  <text x="32" y="50" fill="#e6edf3" font-size="28" font-weight="700">SignalDesk</text>
+  <text x="32" y="76" fill="#8b949e" font-size="15">Real-time market-sentiment engine — citation-validated LLM extraction</text>
+  <rect x="630" y="32" width="138" height="26" rx="13" fill="#23863622"/>
+  <circle cx="648" cy="45" r="5" fill="#3fb950"/>
+  <text x="660" y="50" fill="#3fb950" font-size="13" font-weight="600">LIVE · in-browser</text>
+
+  <!-- input card -->
+  <rect x="32" y="100" width="736" height="70" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="48" y="128" fill="#8b949e" font-size="12">HEADLINE</text>
+  <text x="48" y="152" fill="#e6edf3" font-size="15">Nvidia <tspan fill="#e6edf3" font-weight="600">surges</tspan> as AI chip demand beats forecasts, but Intel tumbles on weak guidance</text>
+  <rect x="318" y="140" width="58" height="18" rx="4" fill="#bb800033"/>
+
+  <!-- sentiment + tickers card -->
+  <rect x="32" y="186" width="360" height="200" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="48" y="212" fill="#8b949e" font-size="12">SENTIMENT</text>
+  <text x="48" y="244" fill="#e6edf3" font-size="26" font-weight="700">+0.75</text>
+  <circle cx="120" cy="236" r="7" fill="#3fb950"/>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f85149"/><stop offset="0.5" stop-color="#8b949e"/><stop offset="1" stop-color="#3fb950"/></linearGradient>
+  </defs>
+  <rect x="48" y="260" width="312" height="10" rx="5" fill="url(#g)"/>
+  <rect x="318" y="256" width="4" height="18" rx="2" fill="#ffffff"/>
+  <text x="48" y="306" fill="#8b949e" font-size="12">TICKERS</text>
+  <rect x="48" y="316" width="62" height="26" rx="13" fill="#1f6feb22" stroke="#1f6feb55"/>
+  <text x="60" y="333" fill="#58a6ff" font-size="14" font-weight="600">NVDA</text>
+  <rect x="120" y="316" width="56" height="26" rx="13" fill="#1f6feb22" stroke="#1f6feb55"/>
+  <text x="131" y="333" fill="#58a6ff" font-size="14" font-weight="600">INTC</text>
+  <text x="200" y="334" fill="#3fb950" font-size="14" font-weight="600">✓ citation valid</text>
+
+  <!-- quality card -->
+  <rect x="408" y="186" width="360" height="200" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="424" y="212" fill="#e6edf3" font-size="14" font-weight="600">Measured quality (eval harness)</text>
+  <text x="424" y="252" fill="#8b949e" font-size="12">SENTIMENT F1</text>
+  <text x="424" y="278" fill="#e6edf3" font-size="22" font-weight="700">0.943</text>
+  <text x="600" y="252" fill="#8b949e" font-size="12">CORRELATION</text>
+  <text x="600" y="278" fill="#e6edf3" font-size="22" font-weight="700">0.988</text>
+  <text x="424" y="324" fill="#8b949e" font-size="12">HALLUCINATION</text>
+  <text x="424" y="350" fill="#3fb950" font-size="22" font-weight="700">0.0%</text>
+  <text x="600" y="324" fill="#8b949e" font-size="12">CITATION PREC.</text>
+  <text x="600" y="350" fill="#3fb950" font-size="22" font-weight="700">100%</text>
+
+  <text x="400" y="408" fill="#58a6ff" font-size="14" font-weight="600" text-anchor="middle">Click to open the live interactive demo — paste any headline and extract a signal</text>
+</svg>
