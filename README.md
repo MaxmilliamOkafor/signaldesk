@@ -20,8 +20,11 @@
 </p>
 
 <p align="center">
-  <!-- Record a 10–15s GIF of the dashboard streaming + the Model Quality page, save to docs/demo.gif -->
-  <img src="docs/demo.gif" alt="SignalDesk demo" width="760">
+  <a href="https://maxmilliamokafor.github.io/signaldesk/">
+    <img src="docs/preview.svg" alt="SignalDesk live demo preview — click to open" width="760">
+  </a>
+  <br>
+  <em><a href="https://maxmilliamokafor.github.io/signaldesk/">▶ Open the live demo</a> — runs entirely in your browser, no install.</em>
 </p>
 
 ---
