@@ -191,11 +191,12 @@ signaldesk/
 
 A self-contained demo lives in [`docs/index.html`](docs/index.html) and is served
 free via GitHub Pages at **https://maxmilliamokafor.github.io/signaldesk/** — the link
-to put on a CV. It runs in the browser with no backend.
+to put on a CV. It runs entirely in the browser with no backend.
 
-**Enable it once:** either the included workflow `.github/workflows/pages.yml`
-deploys it automatically on push (repo *Settings → Pages → Source: GitHub Actions*),
-or set *Settings → Pages → Source: Deploy from a branch → `main` / `/docs`*.
+**Turn it on once (≈20 s):** open the repo's *Settings → Pages → Build and
+deployment*, set **Source: Deploy from a branch**, choose branch **`main`** and
+folder **`/docs`**, then click **Save**. GitHub publishes the page within a minute —
+no workflow, no build step.
 
 ## 📜 License
 
