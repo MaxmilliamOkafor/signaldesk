@@ -1,0 +1,8 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+streamlit>=1.33
+pandas>=2.2
+altair>=5.2
+requests>=2.31
+feedparser>=6.0

@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    image: signaldesk:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - SIGNALDESK_BACKEND=${SIGNALDESK_BACKEND:-local}
+    command: uvicorn app.api:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    image: signaldesk:latest
+    depends_on:
+      - api
+    ports:
+      - "8501:8501"
+    environment:
+      - SIGNALDESK_BACKEND=${SIGNALDESK_BACKEND:-local}
+    command: streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0

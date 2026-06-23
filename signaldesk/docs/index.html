@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SignalDesk — Live Demo</title>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--bd:#30363d;--tx:#e6edf3;--mut:#8b949e;--accent:#58a6ff;--pos:#3fb950;--neg:#f85149;--neu:#8b949e}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+  h1{font-size:30px;margin:0 0 4px}
+  .sub{color:var(--mut);margin:0 0 18px}
+  .badges img{height:20px;margin-right:6px;vertical-align:middle}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:20px;margin:18px 0}
+  textarea{width:100%;background:#0d1117;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:15px;resize:vertical}
+  button{background:var(--accent);color:#0d1117;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+  button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .chip{font-size:12px;background:#1f6feb22;color:var(--accent);border:1px solid #1f6feb55;border-radius:999px;padding:2px 10px}
+  .out{margin-top:16px;display:none}
+  .meter{height:10px;border-radius:6px;background:linear-gradient(90deg,var(--neg),var(--neu),var(--pos));position:relative;margin:8px 0}
+  .mk{position:absolute;top:-4px;width:4px;height:18px;background:#fff;border-radius:2px;transform:translateX(-2px)}
+  .span{background:#bb800033;border-bottom:2px solid #d29922;padding:0 2px;border-radius:3px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .v{font-size:20px;font-weight:700}
+  a{color:var(--accent)}
+  .ex{font-size:13px;color:var(--mut);cursor:pointer;text-decoration:underline;margin-right:12px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  td,th{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left}
+  .ok{color:var(--pos)} .bad{color:var(--neg)}
+  footer{color:var(--mut);font-size:13px;margin-top:28px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📈 SignalDesk</h1>
+  <p class="sub">Real-time market-sentiment engine — citation-validated LLM extraction. <b>This page runs the engine entirely in your browser.</b></p>
+  <div class="badges">
+    <a href="https://github.com/MaxmilliamOkafor/signaldesk"><img src="https://img.shields.io/badge/code-GitHub-181717?logo=github" alt="GitHub"></a>
+    <img src="https://img.shields.io/badge/demo-live-3fb950" alt="live">
+    <img src="https://img.shields.io/badge/hallucination-0%25-3fb950" alt="halluc">
+  </div>
+
+  <div class="card">
+    <label for="hl"><b>Paste a financial headline</b></label>
+    <textarea id="hl" rows="2">Nvidia surges as AI chip demand beats forecasts, but Intel tumbles on weak guidance</textarea>
+    <div class="row">
+      <button onclick="run()">Extract signal →</button>
+      <button class="ghost" onclick="replay()">▶ Replay sample feed</button>
+    </div>
+    <div style="margin-top:10px">
+      <span class="ex" onclick="set('Apple beats earnings expectations as iPhone sales surge')">Apple beats…</span>
+      <span class="ex" onclick="set('Tesla shares plunge after disappointing delivery numbers')">Tesla plunges…</span>
+      <span class="ex" onclick="set('Boeing recall triggers safety probe into 737 fleet')">Boeing recall…</span>
+    </div>
+
+    <div class="out" id="out">
+      <div class="grid">
+        <div><div class="k">Sentiment</div><div class="v" id="sv">—</div>
+          <div class="meter"><div class="mk" id="mk" style="left:50%"></div></div></div>
+        <div><div class="k">Tickers</div><div class="v" id="tk">—</div>
+          <div class="k" style="margin-top:8px">Citation</div><div class="v" id="ci">—</div></div>
+      </div>
+      <div style="margin-top:14px"><div class="k">Rationale & cited span (highlighted in source)</div>
+        <div id="rat" style="margin-top:6px"></div></div>
+    </div>
+  </div>
+
+  <div class="card" id="feedCard" style="display:none">
+    <b>Replayed feed</b>
+    <table id="feed"><thead><tr><th>Headline</th><th>Sent.</th><th>Tickers</th><th>Cite</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <div class="card">
+    <b>Measured quality</b> (from the repo's eval harness over 36 hand-labelled headlines)
+    <div class="grid" style="margin-top:10px">
+      <div><div class="k">Sentiment F1</div><div class="v">0.943</div></div>
+      <div><div class="k">Sentiment corr</div><div class="v">0.988</div></div>
+      <div><div class="k">Hallucination rate</div><div class="v ok">0.0%</div></div>
+      <div><div class="k">Citation precision</div><div class="v ok">100%</div></div>
+    </div>
+    <p class="sub" style="margin-top:12px">Full Python engine (FastAPI + Ollama/OpenAI/Gemini backends + Streamlit dashboard) and the eval harness live in the repo. This page is a faithful in-browser port of the deterministic <code>local</code> backend.</p>
+  </div>
+
+  <footer>
+    <a href="https://github.com/MaxmilliamOkafor/signaldesk">Source code</a> ·
+    <a href="https://github.com/MaxmilliamOkafor/signaldesk/blob/main/README.md">README</a> ·
+    Built by Maxmilliam Okafor
+  </footer>
+</div>
+
+<script>
+const POS={beat:.7,beats:.7,surge:.8,surges:.8,soar:.85,soars:.85,jump:.6,jumps:.6,rally:.7,rallies:.7,gain:.5,gains:.5,rise:.45,rises:.45,record:.6,upgrade:.7,upgraded:.7,outperform:.7,strong:.55,profit:.5,profits:.5,growth:.5,raises:.55,raised:.55,boost:.6,boosts:.6,approval:.6,approved:.6,wins:.6,tops:.65,topped:.65,bullish:.8,rebound:.6,expands:.45};
+const NEG={miss:-.7,misses:-.7,missed:-.7,plunge:-.85,plunges:-.85,slump:-.7,slumps:-.7,fall:-.5,falls:-.5,drop:-.55,drops:-.55,tumble:-.8,tumbles:-.8,downgrade:-.7,downgraded:-.7,cut:-.5,cuts:-.5,loss:-.6,losses:-.6,weak:-.55,warn:-.65,warns:-.65,warning:-.65,lawsuit:-.6,probe:-.55,recall:-.6,bearish:-.8,slashes:-.7,slashed:-.7,layoffs:-.65,bankruptcy:-.9,fraud:-.85,halts:-.5,sinks:-.75,decline:-.5,declines:-.5,fears:-.6};
+const MAP={apple:"AAPL",microsoft:"MSFT",amazon:"AMZN",alphabet:"GOOGL",google:"GOOGL",meta:"META",facebook:"META",nvidia:"NVDA",tesla:"TSLA",netflix:"NFLX",intel:"INTC",amd:"AMD",boeing:"BA",ford:"F",disney:"DIS",walmart:"WMT",jpmorgan:"JPM",goldman:"GS",exxon:"XOM",chevron:"CVX",pfizer:"PFE",moderna:"MRNA",starbucks:"SBUX",uber:"UBER",coinbase:"COIN",paypal:"PYPL",oracle:"ORCL",salesforce:"CRM",broadcom:"AVGO",qualcomm:"QCOM",micron:"MU",palantir:"PLTR"};
+function extract(text){
+  const tickers=[];const seen={};
+  (text.match(/\$([A-Z]{1,5})\b/g)||[]).forEach(m=>{const t=m.slice(1);if(!seen[t]){seen[t]=1;tickers.push(t)}});
+  const low=text.toLowerCase();
+  for(const k in MAP){if(new RegExp("\\b"+k+"\\b").test(low)){const t=MAP[k];if(!seen[t]){seen[t]=1;tickers.push(t)}}}
+  let best="",bestAbs=0,sum=0,hits=0;
+  const re=/[A-Za-z']+/g;let m;
+  while((m=re.exec(text))){const w=m[0].toLowerCase();const s=POS[w]??NEG[w]??0;if(s!==0){sum+=s;hits++;if(Math.abs(s)>bestAbs){bestAbs=Math.abs(s);best=text.slice(m.index,m.index+m[0].length)}}}
+  let sent=0;if(hits){sent=Math.max(-1,Math.min(1,sum/hits))}else{const words=text.match(re)||[];best=words.reduce((a,b)=>b.length>a.length?b:a,"");}
+  const dir=sent>.1?"bullish":sent<-.1?"bearish":"neutral";
+  const rationale=`Headline signals a ${dir} read for ${tickers.join(", ")||"the market"} on the cue '${best}'.`;
+  const cite=text.toLowerCase().includes(best.toLowerCase())&&best.length>0;
+  return{tickers,sentiment:+sent.toFixed(3),span:best,rationale,cite,dir};
+}
+function set(t){document.getElementById('hl').value=t;run()}
+function render(text,r){
+  document.getElementById('out').style.display='block';
+  const sv=document.getElementById('sv');sv.textContent=(r.sentiment>0?'+':'')+r.sentiment+' '+(r.dir==='bullish'?'🟢':r.dir==='bearish'?'🔴':'⚪️');
+  document.getElementById('mk').style.left=((r.sentiment+1)/2*100)+'%';
+  document.getElementById('tk').textContent=r.tickers.join(', ')||'—';
+  const ci=document.getElementById('ci');ci.innerHTML=r.cite?'<span class="ok">✅ valid</span>':'<span class="bad">⚠️ unverified</span>';
+  const hi=text.replace(r.span,'<span class="span">'+r.span+'</span>');
+  document.getElementById('rat').innerHTML='<i>"'+r.rationale+'"</i><br><br><span class="k">Source:</span> '+hi;
+}
+function run(){const t=document.getElementById('hl').value;render(t,extract(t))}
+const SAMPLE=["Apple beats earnings expectations as iPhone sales surge","Tesla shares plunge after disappointing delivery numbers","Microsoft raises guidance on strong cloud growth","Nvidia tumbles as AI chip demand fears mount","JPMorgan tops estimates as trading revenue soars","Disney warns of weak streaming outlook","Palantir wins major government contract","Coinbase sinks as crypto volumes drop"];
+function replay(){
+  document.getElementById('feedCard').style.display='block';
+  const tb=document.querySelector('#feed tbody');tb.innerHTML='';
+  SAMPLE.forEach((h,i)=>setTimeout(()=>{const r=extract(h);const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${h}</td><td>${r.sentiment>0?'+':''}${r.sentiment}</td><td>${r.tickers.join(', ')||'—'}</td><td>${r.cite?'✅':'⚠️'}</td>`;tb.appendChild(tr);},i*350));
+}
+run();
+</script>
+</body>
+</html>

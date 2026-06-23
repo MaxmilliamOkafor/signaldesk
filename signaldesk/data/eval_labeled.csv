@@ -1,0 +1,37 @@
+id,text,label_direction,label_sentiment,label_tickers
+e01,Apple beats earnings expectations as iPhone sales surge,1,0.8,AAPL
+e02,Tesla shares plunge after disappointing delivery numbers,-1,-0.8,TSLA
+e03,Microsoft raises guidance on strong cloud growth,1,0.7,MSFT
+e04,Nvidia tumbles as AI chip demand fears mount,-1,-0.75,NVDA
+e05,Amazon profits jump on advertising rally,1,0.65,AMZN
+e06,Boeing recall triggers safety probe into 737 fleet,-1,-0.7,BA
+e07,Meta rallies after analysts upgrade the stock,1,0.7,META
+e08,Intel cuts dividend amid mounting losses,-1,-0.7,INTC
+e09,Ford reports record quarterly profit,1,0.6,F
+e10,Netflix subscriber growth slows but stays positive,0,0.1,NFLX
+e11,Disney warns of weak streaming outlook,-1,-0.6,DIS
+e12,JPMorgan tops estimates as trading revenue soars,1,0.75,JPM
+e13,Pfizer drug wins FDA approval,1,0.65,PFE
+e14,Starbucks same-store sales fall in key China market,-1,-0.55,SBUX
+e15,Uber posts first annual profit,1,0.6,UBER
+e16,Coinbase sinks as crypto volumes drop,-1,-0.7,COIN
+e17,Oracle gains on cloud backlog expansion,1,0.5,ORCL
+e18,Salesforce slashes full-year forecast,-1,-0.65,CRM
+e19,Broadcom beats on AI networking demand,1,0.7,AVGO
+e20,Qualcomm shares slump on weak handset guidance,-1,-0.6,QCOM
+e21,Micron rebound continues as memory prices rise,1,0.55,MU
+e22,Palantir wins major government contract,1,0.65,PLTR
+e23,PayPal layoffs signal cost-cutting push,-1,-0.5,PYPL
+e24,AMD outperforms as data center revenue strong,1,0.7,AMD
+e25,Walmart holds guidance steady ahead of holidays,0,0.0,WMT
+e26,Goldman Sachs faces lawsuit over deal disclosures,-1,-0.6,GS
+e27,Exxon profit rises on higher oil prices,1,0.5,XOM
+e28,Chevron halts buybacks amid weak refining margins,-1,-0.5,CVX
+e29,Moderna plunges after vaccine trial setback,-1,-0.8,MRNA
+e30,Alphabet ad revenue beats as search stays strong,1,0.65,GOOGL
+e31,Markets mixed as investors await Fed decision,0,0.0,
+e32,Stocks drift lower in quiet holiday trading,0,-0.1,
+e33,Apple and Microsoft both hit record highs,1,0.7,AAPL|MSFT
+e34,Tesla recall and Boeing probe weigh on industrials,-1,-0.65,TSLA|BA
+e35,Bullish sentiment lifts tech as Nvidia leads gains,1,0.75,NVDA
+e36,Bearish mood deepens as bank stocks tumble,-1,-0.75,
